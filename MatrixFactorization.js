@@ -9,7 +9,7 @@ const k = 4;
 const beta = 0.6;
 const mU = 5;
 const mI = 5;
-let loop = 50000;
+let loop = 5;
 
 const w = [];
 const h = [];
@@ -34,6 +34,36 @@ for (let i = 0; i < k; i++) {
 console.log('------------H--------------');
 console.log(h);
 
-while (loop-- > 0) {
-    // for ()
+const calculatorMultipleTwoMatrix = (r, c, k) => {
+    let result = 0;
+    for (let i = 0; i < k; i++) {
+        result += (w[r][k] * h[k][c]);
+    }
+
+    return result;
 }
+
+while (loop-- > 0) {
+    for (let i = 0; i < mU; i++) {
+        for (let j = 0; j < mI; j++) {
+            let r = 0;
+            for (let l = 0; l < k; l++) {
+                // r = r + calculatorMultipleTwoMatrix(i, j, l);
+                r = r + w[i][l] * h[l][j];
+            }
+
+            const eui = Dui[i][j] - r;
+            console.log(eui)
+            for (let l = 0; l < k; l++) {
+                w[i][l] += 2 * beta * eui * h[l][j];
+                h[l][j] += 2 * beta * eui * w[i][l];
+            }
+        }
+    }
+}
+
+console.log('------------W-Convert--------------');
+console.log(w);
+
+console.log('------------H-Convert--------------');
+console.log(h);
